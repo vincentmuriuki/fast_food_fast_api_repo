@@ -1,5 +1,5 @@
 from flask import Flask, request
-from flask_restful import    Resource
+from flask_restful import Resource
 
 # local imports
 from .models import Order, food_orders

@@ -10,7 +10,6 @@ class Order:
         self.id=Order.order_id
         self.status=status
         
-
         Order.order_id += 1
 
     def serialize(self):

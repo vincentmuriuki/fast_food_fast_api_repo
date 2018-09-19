@@ -5,8 +5,11 @@ import json
 from app.api.v1 import create_app
 
 
+
+
 class TestOrders(unittest.TestCase):
     def setUp(self):
+        '''settings'''
         self.app = create_app("testing")
         self.client = self.app.test_client()
         self.app_context = self.app.app_context()
@@ -16,10 +19,11 @@ class TestOrders(unittest.TestCase):
         self.app_context.pop()
 
     def test_create_order(self):
+        ''''''
         data = {
-            "name": "chicken",
-            "price": 200,
-            "description": "fried chicken"
+            "name": "pizza",
+            "price": 20,
+            "description": "sweet pizza"
         }
 
         res = self.client.post(
@@ -29,7 +33,7 @@ class TestOrders(unittest.TestCase):
         )
 
         self.assertEqual(res.status_code, 201)
-        self.assertEqual(json.loads(res.data)["message"], "Food order created")
+        self.assertEqual(json.loads(res.data)['message'], "Food order created")
 
     def test_get_all_orders(self):
 
@@ -39,6 +43,7 @@ class TestOrders(unittest.TestCase):
         )
 
         self.assertEqual(res.status_code, 200)
+
 
     def test_order_by_id(self):
         res = self.client.get(
@@ -56,22 +61,27 @@ class TestOrders(unittest.TestCase):
         print(res.data)
         self.assertEqual(res.status_code, 200)
         self.assertEqual(json.loads(res.data)[
-                         'message'], "status approved")
+                         'message'], "Orders Completed")
+
+    
+    
 
 
     def test_non_order_by_id(self):
         res = self.client.get(
-            "/api/v1/orders/111",
+            "/api/v1/orders/15",
             headers={"content-type": "application/json"}
         )
         self.assertEqual(res.status_code, 404)
         self.assertEqual(json.loads(res.data)[
                          'message'], "Order not found")
 
+
     def test_non_order_delete(self):
         res = self.client.delete(
-            "api/v1/orders/11",
+            "api/v1/orders/9",
             headers={"content-type": "application/json"}
         )
         self.assertEqual(res.status_code, 404)
-        self.assertEqual(json.loads(res.data)["message"], "Order not found")
+        self.assertEqual(json.loads(res.data)[
+                         'message'], "Order not found")
