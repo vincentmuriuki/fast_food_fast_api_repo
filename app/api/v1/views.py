@@ -25,3 +25,12 @@ class SingleOrder(Resource):
         if spec_order:
             return {"order": spec_order.serialize()}, 200
         return {"message":"Order not found"}, 404
+
+    def put(self, id):
+        # data = request.get_json()
+        order = Order().retrieve_order_by_id(id)
+
+        if order:
+            order.status="approved"
+            return {"message":"status approved"}
+        return {"message":"Order not found"}, 404
