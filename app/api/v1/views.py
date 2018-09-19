@@ -34,3 +34,12 @@ class SingleOrder(Resource):
             order.status="approved"
             return {"message":"status approved"}
         return {"message":"Order not found"}, 404
+
+
+    def delete(self, id):
+        spec_order = Order().retrieve_order_by_id(id)
+
+        if spec_order:
+            food_orders.remove(spec_order)
+            return {"Message" : "Requested Order deleted successfully!"},200
+        return {"Message" : "Requested Order not found! Try a different ID!"}, 404
