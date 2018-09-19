@@ -13,3 +13,7 @@ class PostOrder(Resource):
         order = Order(data['name'], data["price"],data['description'])
         food_orders.append(order)
         return {"message":"Congratulations. Your new order has been posted. Kindly wait!"}, 201
+
+class GetOrders(Resource):
+    def get(self):
+        return {"Orders":[order.serialize() for order in food_orders]}
