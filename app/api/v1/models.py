@@ -1,16 +1,16 @@
 food_orders = []
 
-class Order:
+
+class CustomerOrders:
 
     order_id = 1
     def __init__(self,name=None,price=None,description=None, status="Pending"):
         self.name=name
         self.price=price
         self.description=description
-        self.id=Order.order_id
+        self.id=CustomerOrders.order_id
         self.status=status
-        
-        Order.order_id += 1
+        CustomerOrders.order_id += 1
 
     def serialize(self):
         return dict(
