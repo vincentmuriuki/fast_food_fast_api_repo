@@ -3,8 +3,8 @@ import json
 import sys
 sys.path.append("../")
 # Local imports
+# from api.v1 import *
 from app.api.v1 import create_app
-
 
 class TestOrders(unittest.TestCase):
     def setUp(self):
@@ -16,18 +16,21 @@ class TestOrders(unittest.TestCase):
     def tearDown(self):
         self.app_context.pop()
 
+
     def test_create_order(self):
-        data = {
-            "name": "chicken",
-            "price": 200,
-            "description": "fried chicken"
+        order_data = {
+            "name": "Chicken",
+            "price": 1200,
+            "description": "Fried"
         }
 
-        res = self.client.post(
-            "/api/v1/orders",
-            data=json.dumps(data),
+        response = self.client.post("/api/v1/orders",
+            data=json.dumps(order_data),
             headers={"content-type": "application/json"}
         )
+        self.assertEqual(response.status_code, 201)
+        self.assertEqual(json.loads(response.data)['message'], "Congratulations. Your new order has been posted. Kindly wait!")
+
 
         self.assertEqual(res.status_code, 201)
         self.assertEqual(json.loads(res.data)["message"], "Congratulations. Your new order has been posted. Kindly wait!")
@@ -39,14 +42,15 @@ class TestOrders(unittest.TestCase):
 #             headers={"content-type": "application/json"}
 #         )
 
+
 #         self.assertEqual(res.status_code, 200)
 
-    def test_order_by_id(self):
-        res = self.client.get(
-            "/api/v1/orders/1",
-            headers={"content-type": "application/json"}
-        )
-        self.assertEqual(res.status_code, 200)
+#     def test_order_by_id(self):
+#         res = self.client.get(
+#             "/api/v1/orders/1",
+#             headers={"content-type": "application/json"}
+#         )
+#         self.assertEqual(res.status_code, 200)
 
     
 #     def test_update_order_status(self):
@@ -56,8 +60,9 @@ class TestOrders(unittest.TestCase):
 #         )
 #         print(res.data)
 #         self.assertEqual(res.status_code, 200)
-#         self.assertEqual(json.loads(res.data)[
-#                          'message'], "status approved")
+
+#         self.assertEqual(json.loads(res.data)['message'], "status approved")
+
 
 
 #     def test_non_order_by_id(self):
@@ -69,10 +74,14 @@ class TestOrders(unittest.TestCase):
 #         self.assertEqual(json.loads(res.data)[
 #                          'message'], "Order not found")
 
-#     def test_non_order_delete(self):
+
+#     def test_invalid_order_delete(self):
+#         # res = json.loads(res.data.decode('utf-8'))
 #         res = self.client.delete(
-#             "api/v1/orders/11",
-#             headers={"content-type": "application/json"}
-#         )
+#                 "api/v1/orders/101",
+#                 headers={"content-type": "application/json"}
+#                 )
+#         # res = json.loads(res.decode('utf-8'))
 #         self.assertEqual(res.status_code, 404)
-#         self.assertEqual(json.loads(res.data)["message"], "Order not found")
+#         self.assertEqual(json.loads(res.data)['message'],"Requested Order not found! Try a different ID!")
+
