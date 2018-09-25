@@ -29,7 +29,7 @@ class TestOrders(unittest.TestCase):
         )
 
         self.assertEqual(res.status_code, 201)
-        self.assertEqual(json.loads(res.data)["message"], "Food order created")
+        self.assertEqual(json.loads(res.data)["message"], "Congratulations. Your new order has been posted. Kindly wait!")
 
     def test_get_all_orders(self):
 
