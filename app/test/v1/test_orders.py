@@ -1,6 +1,5 @@
 import unittest
 import json
-
 import sys
 sys.path.append("../")
 # Local imports
@@ -42,12 +41,12 @@ class TestOrders(unittest.TestCase):
 
         self.assertEqual(res.status_code, 200)
 
-#     def test_order_by_id(self):
-#         res = self.client.get(
-#             "/api/v1/orders/1",
-#             headers={"content-type": "application/json"}
-#         )
-#         self.assertEqual(res.status_code, 200)
+    def test_order_by_id(self):
+        res = self.client.get(
+            "/api/v1/orders/1",
+            headers={"content-type": "application/json"}
+        )
+        self.assertEqual(res.status_code, 200)
 
     
 #     def test_update_order_status(self):
