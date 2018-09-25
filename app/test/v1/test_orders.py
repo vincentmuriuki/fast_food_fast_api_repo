@@ -40,39 +40,39 @@ class TestOrders(unittest.TestCase):
 
         self.assertEqual(res.status_code, 200)
 
-#     def test_order_by_id(self):
-#         res = self.client.get(
-#             "/api/v1/orders/1",
-#             headers={"content-type": "application/json"}
-#         )
-#         self.assertEqual(res.status_code, 200)
+    def test_order_by_id(self):
+        res = self.client.get(
+            "/api/v1/orders/1",
+            headers={"content-type": "application/json"}
+        )
+        self.assertEqual(res.status_code, 200)
 
     
-#     def test_update_order_status(self):
-#         res = self.client.put(
-#             "api/v1/orders/1",
-#             headers={"content-type": "application/json"}
-#         )
-#         print(res.data)
-#         self.assertEqual(res.status_code, 200)
-#         self.assertEqual(json.loads(res.data)['message'], "status approved")
+    def test_update_order_status(self):
+        res = self.client.put(
+            "api/v1/orders/1",
+            headers={"content-type": "application/json"}
+        )
+        print(res.data)
+        self.assertEqual(res.status_code, 200)
+        self.assertEqual(json.loads(res.data)['message'], "status approved")
 
 
-#     def test_non_order_by_id(self):
-#         res = self.client.get(
-#             "/api/v1/orders/111",
-#             headers={"content-type": "application/json"}
-#         )
-#         self.assertEqual(res.status_code, 404)
-#         self.assertEqual(json.loads(res.data)[
-#                          'message'], "Order not found")
+    def test_non_order_by_id(self):
+        res = self.client.get(
+            "/api/v1/orders/111",
+            headers={"content-type": "application/json"}
+        )
+        self.assertEqual(res.status_code, 404)
+        self.assertEqual(json.loads(res.data)[
+                         'message'], "Order not found")
 
-#     def test_invalid_order_delete(self):
-#         # res = json.loads(res.data.decode('utf-8'))
-#         res = self.client.delete(
-#                 "api/v1/orders/101",
-#                 headers={"content-type": "application/json"}
-#                 )
-#         # res = json.loads(res.decode('utf-8'))
-#         self.assertEqual(res.status_code, 404)
-#         self.assertEqual(json.loads(res.data)['message'],"Requested Order not found! Try a different ID!")
+    def test_invalid_order_delete(self):
+        # res = json.loads(res.data.decode('utf-8'))
+        res = self.client.delete(
+                "api/v1/orders/101",
+                headers={"content-type": "application/json"}
+                )
+        # res = json.loads(res.decode('utf-8'))
+        self.assertEqual(res.status_code, 404)
+        self.assertEqual(json.loads(res.data)['message'],"Requested Order not found! Try a different ID!")
