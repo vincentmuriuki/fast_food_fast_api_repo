@@ -16,22 +16,21 @@ class TestOrders(unittest.TestCase):
     def tearDown(self):
         self.app_context.pop()
 
-#     def test_create_order(self):
-#         data = {
-#             "name": "chicken",
-#             "price": 200,
-#             "description": "fried chicken"
-#         }
+    def test_create_order(self):
+        data = {
+            "name": "chicken",
+            "price": 200,
+            "description": "fried chicken"
+        }
 
-#         res = self.client.post(
-#             "/api/v1/orders",
-#             data=json.dumps(data),
-#             headers={"content-type": "application/json"}
-#         )
+        res = self.client.post(
+            "/api/v1/orders",
+            data=json.dumps(data),
+            headers={"content-type": "application/json"}
+        )
 
         self.assertEqual(res.status_code, 201)
         self.assertEqual(json.loads(res.data)["message"], "Congratulations. Your new order has been posted. Kindly wait!")
-
 
 #     def test_get_all_orders(self):
 
@@ -42,12 +41,12 @@ class TestOrders(unittest.TestCase):
 
 #         self.assertEqual(res.status_code, 200)
 
-#     def test_order_by_id(self):
-#         res = self.client.get(
-#             "/api/v1/orders/1",
-#             headers={"content-type": "application/json"}
-#         )
-#         self.assertEqual(res.status_code, 200)
+    def test_order_by_id(self):
+        res = self.client.get(
+            "/api/v1/orders/1",
+            headers={"content-type": "application/json"}
+        )
+        self.assertEqual(res.status_code, 200)
 
     
 #     def test_update_order_status(self):
