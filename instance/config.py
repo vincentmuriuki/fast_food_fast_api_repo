@@ -10,7 +10,8 @@ class Testing(Config):
     TESTING=True
 
 class Production(Config):
-    pass
+    TESTING = False
+    DEBUG = False
 
 
 app_config={

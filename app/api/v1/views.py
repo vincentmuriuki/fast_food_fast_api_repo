@@ -20,23 +20,18 @@ class GetOrders(Resource):
 
 class SingleOrder(Resource):
     def get(self, id):
-        spec_order = CustomerOrders().retrieve_order_by_id(id)
+        spec_order = Order().retrieve_order_by_id(id)
         
         if spec_order:
             return {"order": spec_order.serialize()}, 200
         return {"message":"Order not found"}, 404
 
     def put(self, id):
-        order = CustomerOrders().retrieve_order_by_id(id)
+        # data = request.get_json()
+        order = Order().retrieve_order_by_id(id)
+
         if order:
             order.status="approved"
             return {"message":"status approved"}
         return {"message":"Order not found"}, 404
 
-
-    def delete(self, id):
-        spec_order = CustomerOrders().retrieve_order_by_id(id)
-        if spec_order:
-            food_orders.remove(spec_order)
-            return {"Message" : "Requested Order deleted successfully!"},200
-        return {"message" : "Requested Order not found! Try a different ID!"}, 404
