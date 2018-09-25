@@ -5,7 +5,7 @@ from flask_restful import Api
 
 # local imports
 from instance.config import app_config
-from .views import PostOrder, GetOrders
+from .views import PostOrder, , SingleOrder,GetOrders
 
 
 def create_app(config_stage):
