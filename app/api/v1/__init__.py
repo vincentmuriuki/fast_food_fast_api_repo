@@ -7,7 +7,6 @@ from flask_restful import Api
 from instance.config import app_config
 from .views import SingleOrder, PostOrder, GetOrders
 
-
 def create_app(config_stage):
     app = Flask(__name__, instance_relative_config=True)
     app.config.from_object(app_config[config_stage])
