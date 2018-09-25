@@ -1,6 +1,9 @@
 import unittest
 import json
 
+import sys
+sys.path.append("../")
+
 # Local imports
 from app.api.v1 import create_app
 
