@@ -29,17 +29,18 @@ class TestOrders(unittest.TestCase):
 #             headers={"content-type": "application/json"}
 #         )
 
-#         self.assertEqual(res.status_code, 201)
-#         self.assertEqual(json.loads(res.data)["message"], "Food order created")
+        self.assertEqual(res.status_code, 201)
+        self.assertEqual(json.loads(res.data)["message"], "Congratulations. Your new order has been posted. Kindly wait!")
 
-    def test_get_all_orders(self):
 
-        res = self.client.get(
-            "/api/v1/orders",
-            headers={"content-type": "application/json"}
-        )
+#     def test_get_all_orders(self):
 
-        self.assertEqual(res.status_code, 200)
+#         res = self.client.get(
+#             "/api/v1/orders",
+#             headers={"content-type": "application/json"}
+#         )
+
+#         self.assertEqual(res.status_code, 200)
 
 #     def test_order_by_id(self):
 #         res = self.client.get(
