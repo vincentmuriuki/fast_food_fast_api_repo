@@ -1,11 +1,12 @@
 from app.api.v2 import db
+from flask_bcrypt import Bcrypt
 from flask import current_app
-
+import jwt
 from datetime import datetime, timedelta
 
 
 class User(db.Model):
-    	"""
+	"""
 	class to define a users table
 	"""
 	__tablename__ = 'users'
@@ -36,4 +37,37 @@ class User(db.Model):
 		db.session.add(self)
 		db.session.commit()
 
-	
+	def generate_token(self, user_id):
+		"""
+		Function to generate token that will be used as the Authorization header
+		"""
+		try:
+			#set payload with an expiration time
+			payload = {
+			'exp': datetime.utcnow() + timedelta(minutes=3),
+			'iat': datetime.utcnow(),
+			'sub': user_id
+			}
+			# create a byte string token using the payload and the SECRET key
+			jwt_string jwt.encode(
+				payload,
+				current_app.config.get('SECRET_KEY'),
+				algorithm='HS256'
+				)
+			return jwt_string
+		except Exception as e:
+			# return an error in string format
+			return str(e)
+
+	@staticmethod
+	def decode_token(token):
+		"""
+		Decode the access token from the authorization header
+		"""
+		try:
+			payload = jwt.decode(token, current_app.config.get('SECRET_KEY'))
+			return payload['sub']
+		except jwt.ExpiredSignatureError:
+			return "Expired token. Please login to get a new token!"
+		except jwt.InvalidTokenError:
+			return "Invalid token. Please register or login!"
