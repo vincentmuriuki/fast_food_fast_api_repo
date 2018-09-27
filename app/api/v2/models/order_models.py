@@ -4,8 +4,9 @@ from flask import current_app
 import jwt
 from datetime import datetime, timedelta
 
+
 class Orders(db.Model):
-    	# table columns
+	# table columns
 	__tablename__ = 'customer_orders'
 
 	order_id = db.Column(db.Integer, primary_key=True)
@@ -30,7 +31,7 @@ class Orders(db.Model):
 		db.session.add(self)
 		db.session.commit()
 
-
+	@staticmethod
 	def get_all_user_orders(user_id):
 		"""
 		Function to retrieve all orders by a specific user
