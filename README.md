@@ -23,7 +23,7 @@ $pip install -r requirements.txt
 $python run.py
 ```
 
-You can alternatively use the `heroku` link to test the api's on postman.
+You can alternatively use the [heroku](https://fast-food-fast-repo.herokuapp.com/api/v1/orders) link to test the api's on postman.
 
 Open postman, and try this endpoints
 
