@@ -6,9 +6,9 @@ from app.api.v2.database.tables import dbconn
 class Orders:
     table = 'orders'
 
-    def __init__(self, name, quantity, price):
+    def __init__(self, name, description, price):
         self.name = name
-        self.quantity = quantity
+        self.description = description
         self.price = price
         self.date_created = datetime.now()
         self.status = 'Pending'
@@ -19,17 +19,26 @@ class Orders:
     def add_to_list(self):
         return {
             'name': self.name,
-            'quantity': self.quantity,
+            'description': self.description,
             'price': self.price,
             'date_created': self.date_created,
             'status': self.status
         }
 
     def add_order(self):
-        order = Orders(self.name,
-                       self.quantity,
-                       self.price)
+        order = Orders(self.name, self.price, self.description)
         pass
+        
+    @staticmethod
+    def retrieve_list_all_orders():
+        con = dbconn()
+        curr = con.cursor()
+        curr.execute("""SELECT * FROM orders""")
+        orders = curr.fetchall()
+        curr.close()
+        con.close()
+
+        return orders
 
     
     @classmethod
