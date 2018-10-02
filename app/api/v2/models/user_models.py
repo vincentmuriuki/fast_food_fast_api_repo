@@ -31,16 +31,57 @@ class User(object):
         self.password = password
         self.role = role
 
-        cursor = self.connection.cursor()
-        cursor.execute("""INSERT INTO users (username, email, password, location, role) 
+        curr = self.connection.cursor()
+        curr.execute("""INSERT INTO users (username, email, password, location, role) 
         VALUES ('%s', '%s', '%s', '%s', '%s') RETURNING customer_id
         """ % (self.username, self.email, self.password, self.location, self.user))
-        customer_id = cursor.fetchone()
+        customer_id = curr.fetchone()
         self.connection.commit()
-        cursor.execute("SELECT * FROM users WHERE email='%s'" % self.email)
+        curr.execute("SELECT * FROM users WHERE email='%s'" % self.email)
 
-        customer = cursor.fetchone()
+        customer = curr.fetchone()
         print("Welcome" + str(customer))
 
         return customer		
 	
+	def user_login(self, email, password):
+        curr = self.connection.cursor()
+        curr.execute("SELECT * FROM users WHERE email='%s" % email)
+        customer_id = curr.fetchone()
+        return customer_id
+
+
+    def get_user_email(self, email):
+        curr = self.connection.cursor()
+        curr.execute("SELECT * FROM users WHERE email='%s'" % email)
+        fastfood_user = curr.fetchone()
+        # self.connection.close()
+        return fastfood_user
+
+
+    def retrieve_user_password(self, email):
+        curr = self.connection.cursor()
+        # query = """SELECT password FROM users WHERE email = '%s"email)s"""
+        curr.execute("SELECT * FROM users WHERE email='%s'" % email)
+        # data = {'email': email}
+        # curr.execute(query, data)
+        hashed_password = curr.fetchone()[3]
+        # it checks the index
+        # self.db.close()
+        return hashed_password
+
+
+    def retrieve_customer_id(self, email):
+        curr = self.connection.cursor()
+        curr.execute("SELECT customer_id FROM users WHERE email='%s'" % email)
+        customer_id = curr.fetchone()
+        # self.connection.close()
+        return customer_id
+   
+
+    def customer_det(self, customer_id):
+        curr = self.connection.cursor()
+        curr.execute("SELECT * FROM users WHERE customer_id='%s'" % customer_id)
+        customer_details = curr.fetchone()
+        # self.db.close()
+        return customer_details
