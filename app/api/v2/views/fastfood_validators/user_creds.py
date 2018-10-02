@@ -24,3 +24,13 @@ class UseerCredSValidators(object):
             raise BadRequest("Your password is too short!")
         return self.password            
             
+
+
+   	def check_username_validity(self, username):
+        self.username = username
+
+        for a in username:
+            if not a.isalpha():
+                raise BadRequest("Incorrect username format!")
+            else:
+                return self.username
