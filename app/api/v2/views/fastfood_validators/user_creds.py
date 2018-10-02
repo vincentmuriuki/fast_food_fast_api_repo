@@ -15,3 +15,12 @@ class UseerCredSValidators(object):
             raise BadRequest("Invalid email. Kindly use a correct email!")
         else:
             return self.email
+
+
+    def check_password_validity(self, password):
+        self.password = password
+
+        if len(self.password) < 4:
+            raise BadRequest("Your password is too short!")
+        return self.password            
+            
