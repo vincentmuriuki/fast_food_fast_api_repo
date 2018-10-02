@@ -51,3 +51,26 @@ class UserLogin(Resource):
         user_data = request.get_json()
         email = validate.check_email_validity(user_data['email'])
         password = validate.check_password_validity(user_data['password'])
+        if not email or not password:
+            return {"message" : "Login Unsuccessful!"}
+        
+        user = user_models.get_login_email(email)
+        # print (user)
+        if not user:
+            return {"message" : "User not registered!"}
+        else:
+            hashed_password = user_models.get_user_password(email)
+            print (hashed_password)
+
+            user_id = user_models.get_user_id(email)
+            if check_password_hash(hashed_password, password):
+                token = jwt.encode(
+                    {
+                        "user_id":user_id,
+                        "exp":dt.datetime.utcnow() + dt.timedelta(minutes=20),},
+                    os.getenv("SECRET_KEY"),
+                    algorithm="HS256")
+                return(
+                    {
+                        'token':token.decode('UTF-8')})
+            return {"message" : "Wrong pass!"} 
