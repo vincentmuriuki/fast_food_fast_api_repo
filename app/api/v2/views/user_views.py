@@ -40,3 +40,14 @@ class SignUp(Resource):
                 "user_id":user_id[0]
             }
         ), 201
+
+class UserLogin(Resource):
+
+    def post(self):
+        parser = reqparse.RequestParser()
+        parser.add_argument('email', type=str, help="Please enter your email!")
+        parser.add_argument('password', type=str, help="Enter your preferred password!")
+        args = parser.parse_args()
+        user_data = request.get_json()
+        email = validate.check_email_validity(user_data['email'])
+        password = validate.check_password_validity(user_data['password'])
