@@ -12,7 +12,7 @@ class CustomerOrders:
         self.status=status
         CustomerOrders.order_id += 1
 
-    def serialize(self):
+    def order_details(self):
         return dict(
             id=self.id,
             name=self.name,
