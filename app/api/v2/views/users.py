@@ -75,9 +75,11 @@ class UserLogin(Resource):
                         "exp":dt.datetime.utcnow() + dt.timedelta(minutes=20),},
                     os.getenv("SECRET_KEY"),
                     algorithm="HS256")
-                return(
-                    {
-                        'token':token.decode('UTF-8')})
+                print(jwt.decode(token, os.getenv("SECRET_KEY"), algorithms=['HS256']))
+                
+                return({'token':token.decode('UTF-8')})
+
+
             return {"message" : "Wrong pass!"}  
 
 class UserLogout(Resource):
