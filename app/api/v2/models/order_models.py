@@ -165,3 +165,13 @@ class OrderModels(object):
         # order_data = cursor.fetchone()
         cursor.close()
         return {"status" : status}
+
+    def delete_order(self, order_id):
+        """
+        This function deletes a user if user id is specified
+        """
+        cursor = self.connection.cursor()
+        query = cursor.execute("DELETE FROM orders WHERE order_id = %(order_id)s")
+        data = {'order_id': order_id}
+
+        return True
