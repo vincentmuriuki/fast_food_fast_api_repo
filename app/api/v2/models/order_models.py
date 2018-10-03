@@ -186,3 +186,11 @@ class OrderModels(object):
                 "message" : "The order exists",
                 "Orders": data
             }
+
+    @staticmethod
+    def retrieve_available_menu():
+        cursor = OrderModels.connection.cursor()
+        query = cursor.execute("SELECT * FROM meals")
+        menu = cursor.fetchall()
+        cursor.close()
+        return menu
