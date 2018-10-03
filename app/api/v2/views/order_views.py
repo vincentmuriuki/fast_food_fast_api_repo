@@ -2,13 +2,27 @@
 from flask import Flask, request, jsonify, make_response
 from flask_restful import reqparse, Resource, Api
 
+from functools import wraps
+# from jwt import get_jwt_identity
 
 from app.api.v2.models.order_models import OrderModels
+from app.api.v2.models.fastfood_users import UserModels
 from app.api.v2.validators.validators import Validators
 from app.api.v2.helpers.helpers import token_required
 from app.api.v2.helpers.helpers import token_required
+
+
 # validate = Validators()
 # order_models = OrderModels()
+
+# def admin_level(func):
+# 	@wraps(func)
+# 	def inner_function(*args, **kwargs):
+# 		user = UserModels().get_user_creds_with_id(get_jwt_identity())
+
+# 		if user.user_id
+
+
 
 class PostOrder(Resource):
 	
@@ -78,21 +92,22 @@ class UpdateOrderStatus(Resource):
 
 
 class DeleteOrder(Resource):
-	def delete(self):
+	def delete(self, order_id):
 		"""
 		This function deletes an order from the database
 		"""
-		order_models = OrderModels()
-		order = order_models.delete_order()
+		# order_models = OrderModels()
+		order = OrderModels.delete_order(order_id)
 		return order
 
 class UserOrderHistory(Resource):
-	def get(self):
+	def get(self, user_id):
 		"""
 		This function retrieves the order history for a particular user
 		"""
-		order_models = OrderModels()
-		order = order_models.get_user_order_history()
+		# order_models = OrderModels()
+		order = OrderModels.get_user_order_history(user_id)
+		return order
 
 
 class RetrieveAvailableMenu(Resource):

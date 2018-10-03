@@ -166,18 +166,19 @@ class OrderModels(object):
         cursor.close()
         return {"status" : status}
 
-    def delete_order(self, order_id):
+    @staticmethod
+    def delete_order(order_id):
         """
         This function deletes a user if user id is specified
         """
-        cursor = self.connection.cursor()
-        query = cursor.execute("DELETE FROM orders WHERE order_id = %(order_id)s")
-        data = {'order_id': order_id}
+        cursor = OrderModels.connection.cursor()
+        cursor.execute("DELETE FROM orders WHERE order_id ='%s'" % (order_id))
+        cursor.close()
+        return {"message":"Order deleted"}
 
-        return True
-
-    def get_user_order_history(self):
-        cursor = self.connection.cursor()
+    @staticmethod
+    def get_user_order_history(user_id):
+        cursor = OrderModels.connection.cursor()
         query = cursor.execute("SELECT * FROM orders WHERE user_id = %(user_id)s")
         data = cursor.fetchone()
         cursor.close()
@@ -186,6 +187,7 @@ class OrderModels(object):
                 "message" : "The order exists",
                 "Orders": data
             }
+        return{"message" : "You have no order history"}
 
     @staticmethod
     def retrieve_available_menu():
