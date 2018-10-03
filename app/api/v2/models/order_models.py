@@ -175,3 +175,14 @@ class OrderModels(object):
         data = {'order_id': order_id}
 
         return True
+
+    def get_user_order_history(self):
+        cursor = self.connection.cursor()
+        query = cursor.execute("SELECT * FROM orders WHERE user_id = %(user_id)s")
+        data = cursor.fetchone()
+        cursor.close()
+        if data:
+            return {
+                "message" : "The order exists",
+                "Orders": data
+            }
