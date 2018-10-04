@@ -64,7 +64,7 @@ class UserModels(object):
         """ % (self.username, self.email, self.password, self.address))
         user_id = cursor.fetchone()
         self.connection.commit()
-        
+
     def get_login_email(self, email):
         cursor = self.connection.cursor()
         cursor.execute("SELECT * FROM users WHERE email='%s'" % email)
@@ -74,7 +74,7 @@ class UserModels(object):
  
     def login(self, email, password):
         cursor = self.connection.cursor()
-        cursor.execute("SELECT * FROM users WHERE email='%s" % email)
+        cursor.execute("SELECT * FROM users WHERE email='%s'" % email)
         id = cursor.fetchone()
         # print(id)
         return id
