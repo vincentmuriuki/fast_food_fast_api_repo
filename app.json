@@ -1,0 +1,23 @@
+{
+  "name": "fast_food_fast_api_repo",
+  "scripts": {
+  },
+  "env": {
+  },
+  "formation": {
+    "web": {
+      "quantity": 1
+    }
+  },
+  "addons": [
+
+  ],
+  "buildpacks": [
+    {
+      "url": "heroku/python"
+    },
+    {
+      "url": "http"
+    }
+  ]
+}
