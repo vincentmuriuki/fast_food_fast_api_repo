@@ -11,7 +11,7 @@ def init_database():
     url = os.environ.get('URL')
     conn = psycopg2.connect(url)
     cursor = conn.cursor()
-    print("Connected")
+    # print("Connected")
     try:
         for query in queries:
             cursor.execute(query)

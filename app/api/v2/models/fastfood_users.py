@@ -3,7 +3,7 @@ import psycopg2
 import jwt
 from werkzeug.security import generate_password_hash, check_password_hash
 from werkzeug.exceptions import BadRequest, NotFound
-
+from flask import jsonify
 from app.api.v2.db.db_connection import init_database
 
 class UserModels(object):
@@ -19,7 +19,10 @@ class UserModels(object):
         existing_email = curr.fetchone()
         curr.close()
         if existing_email:
-            raise BadRequest("User exists! Please choose another one")
+            # raise BadRequest("User exists! Please choose another one")
+            return jsonify({
+                "message" : "User exists"
+            })
         else:
             return self.email
                 
