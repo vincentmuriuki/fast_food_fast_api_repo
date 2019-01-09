@@ -36,14 +36,14 @@ class PostOrder(Resource):
 class GetOrders(Resource):
 
     def get(self):
-        return {"Orders":[order.serialize() for order in food_orders]},200 
+        return {"Orders":[order.order_details() for order in food_orders]},200 
 
 class SingleOrder(Resource):
     def get(self, id):
         spec_order = CustomerOrders().retrieve_order_by_id(id)
         
         if spec_order:
-            return {"order": spec_order.serialize()}, 200
+            return {"order": spec_order.order_details()}, 200
         return {"message":"Order not found"}, 404
 
     def put(self, id):
